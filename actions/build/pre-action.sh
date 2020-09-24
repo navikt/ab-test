@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mkdir temp
+mkdir tmp

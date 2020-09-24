@@ -1,4 +1,5 @@
 #!/bin/bash
 
-mkdir ${{ inputs.output-directory }}
+rm -rf ${{ inputs.output-directory }} || true && mkdir ${{ inputs.output-directory }}
+
 mv tmp/* ${{ inputs.output-directory }}

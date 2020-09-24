@@ -26,44 +26,20 @@ runs:
   steps:
     - name: 'make temporary folder'
       shell: bash
-      run: |
-        mkdir temp
+      run: ${{ github.action_path }}/pre-action.sh
 
     - name: 'build master branch distribution'
       shell: bash
-      run: |
-        git checkout ${{ inputs.master-branch }} &&
-        npm install &&
-        npm run ${{ inputs.build-script }} &&
-        mkdir tmp &&
-        mkdir tmp/${{ inputs.master-branch }} &&
-        cp -r ${{ inputs.dist-directory }}/* tmp/${{ inputs.master-branch }}/ &&
-        git reset --hard
+      run: ${{ github.action_path }}/build-master-branch.sh
 
     - name: 'build test branch distributions'
       shell: bash
-      run: |
-        git branch -r |
-        grep --line-buffered ${{ inputs.test-branch-prefix }} |
-        awk '{n=split($0,a,"${{ inputs.test-branch-prefix  }}"); print a[n]}' |
-        xargs -L1 >> ab-test-branches.tmp &&
-        while read l;
-          do git checkout "${{ inputs.test-branch-prefix }}$l";
-          npm install && npm run ${{ inputs.build-script }};
-          mkdir tmp/"$l";
-          cp -r ${{ inputs.dist-directory }}/* tmp/"$l"/;
-          git reset --hard;
-        done < ab-test-branches.tmp &&
-        git checkout $GITHUB_REF
+      run: ${{ github.action_path }}/build-master-branch.sh
 
     - name: 'prepare output folder'
       shell: bash
-      run: |
-        rm -rf ${{ inputs.output-directory }} || true &&
-        mkdir ${{ inputs.output-directory }} &&
-        mv tmp/* ${{ inputs.output-directory }}
+      run: ${{ github.action_path }}/prepare-distribution.sh
 
     - name: 'clean up'
       shell: bash
-      run: |
-        rm -r tmp
+      run: ${{ github.action_path }}/post-action.sh
