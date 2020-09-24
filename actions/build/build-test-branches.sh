@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git branch -r | grep --line-buffered $TEST_BRANCH_PREFIX | awk '{n=split($0,a,"$TEST_BRANCH_PREFIX"); print a[n]}' | xargs -L1 >> ab-test-branches.tmp
+git branch -r | grep --line-buffered $TEST_BRANCH_PREFIX | awk -v tbp=$TEST_BRANCH_PREFIX '{n=split($0,a, tbp); print a[n]}' | xargs -L1 >> ab-test-branches.tmp
 
 while read l;
   do git checkout "$TEST_BRANCH_PREFIX$l";
