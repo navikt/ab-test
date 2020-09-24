@@ -36,7 +36,7 @@ runs:
         npm run ${{ inputs.build-script }} &&
         mkdir tmp &&
         mkdir tmp/${{ inputs.master-branch }} &&
-        cp ${{ inputs.dist-directory }}/* tmp/${{ inputs.master-branch }}/ &&
+        cp -r ${{ inputs.dist-directory }}/* tmp/${{ inputs.master-branch }}/ &&
         git reset --hard
 
     - name: 'build test branch distributions'
@@ -49,7 +49,7 @@ runs:
           do git checkout "$l";
           npm install && npm run ${{ inputs.build-script }};
           mkdir tmp/"$l";
-          cp ${{ inputs.dist-directory }}/* tmp/"$l"/;
+          cp -r ${{ inputs.dist-directory }}/* tmp/"$l"/;
           git reset --hard;
         done < ab-test-branches.tmp &&
         git checkout $GITHUB_REF
