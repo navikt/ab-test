@@ -1,0 +1,67 @@
+name: 'Build A/B-Test Distributions'
+description: 'Iterates through test branches and creates distribution stored in the workflow container.'
+inputs:
+  master-branch:
+    description: 'Name of master (default) branch in repository.'
+    required: false
+    default: 'master'
+  test-branch-prefix:
+    description: 'Prefix used for test branches in repository.'
+    required: false
+    default: 'ab-test/'
+  build-script:
+    description: 'Name of the npm script to run in order to build distribution.'
+    required: false
+    default: 'build'
+  dist-directory:
+    description: 'Name of the output directory for the build script.'
+    required: false
+    default: 'dist'
+  output-directory:
+    description: 'Name of the desired output directory containing all distributions.'
+    required: false
+    default: 'dist'
+runs:
+  using: "composite"
+  steps:
+    - name: 'make temporary folder'
+      shell: bash
+      run: |
+        mkdir temp
+
+    - name: 'build master branch distribution'
+      shell: bash
+      run: |
+      git checkout ${{ inputs.master-branch }}
+      npm install
+      npm run ${{ inputs.build-script }}
+      mkdir tmp/${{ inputs.master-branch }}
+      cp ${{ inputs.dist-directory }}/* tmp/${{ inputs.master-branch }}/
+      git reset --hard
+
+    - name: 'build test branch distributions'
+      shell: bash
+      run: |
+      git branch -r |
+      grep --line-buffered ${{ inputs.test-branch-prefix }} |
+      awk '{n=split($0,a,"${{ inputs.test-branch-prefix  }}"); print "${{ inputs.test-branch-prefix }}"a[n]}' |
+      xargs -L1 >> ab-test-branches.tmp
+      while read l;
+        do git checkout "$l";
+        npm install && npm run ${{ inputs.build-script }};
+        mkdir tmp/"$l"
+        cp ${{ inputs.dist-directory }}/* tmp/"$l"/
+        git reset --hard
+      done < ab-test-branches.tmp
+      git checkout $GITHUB_REF
+
+    - name: 'prepare output folder'
+      shell: bash
+      run: |
+        mkdir ${{ inputs.output-directory }}
+        mv tmp/* ${{ inputs.output-directory }}
+
+    - name: 'clean up'
+      shell: bash
+      run: |
+        rm -r tmp
