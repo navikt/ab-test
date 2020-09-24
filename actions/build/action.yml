@@ -32,28 +32,28 @@ runs:
     - name: 'build master branch distribution'
       shell: bash
       run: |
-      git checkout ${{ inputs.master-branch }}
-      npm install
-      npm run ${{ inputs.build-script }}
-      mkdir tmp/${{ inputs.master-branch }}
-      cp ${{ inputs.dist-directory }}/* tmp/${{ inputs.master-branch }}/
-      git reset --hard
+        git checkout ${{ inputs.master-branch }}
+        npm install
+        npm run ${{ inputs.build-script }}
+        mkdir tmp/${{ inputs.master-branch }}
+        cp ${{ inputs.dist-directory }}/* tmp/${{ inputs.master-branch }}/
+        git reset --hard
 
     - name: 'build test branch distributions'
       shell: bash
       run: |
-      git branch -r |
-      grep --line-buffered ${{ inputs.test-branch-prefix }} |
-      awk '{n=split($0,a,"${{ inputs.test-branch-prefix  }}"); print "${{ inputs.test-branch-prefix }}"a[n]}' |
-      xargs -L1 >> ab-test-branches.tmp
-      while read l;
-        do git checkout "$l";
-        npm install && npm run ${{ inputs.build-script }};
-        mkdir tmp/"$l"
-        cp ${{ inputs.dist-directory }}/* tmp/"$l"/
-        git reset --hard
-      done < ab-test-branches.tmp
-      git checkout $GITHUB_REF
+        git branch -r |
+        grep --line-buffered ${{ inputs.test-branch-prefix }} |
+        awk '{n=split($0,a,"${{ inputs.test-branch-prefix  }}"); print "${{ inputs.test-branch-prefix }}"a[n]}' |
+        xargs -L1 >> ab-test-branches.tmp
+        while read l;
+          do git checkout "$l";
+          npm install && npm run ${{ inputs.build-script }};
+          mkdir tmp/"$l"
+          cp ${{ inputs.dist-directory }}/* tmp/"$l"/
+          git reset --hard
+        done < ab-test-branches.tmp
+        git checkout $GITHUB_REF
 
     - name: 'prepare output folder'
       shell: bash
