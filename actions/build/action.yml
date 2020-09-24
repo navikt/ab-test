@@ -31,7 +31,8 @@ runs:
 
     - name: 'build master branch distribution'
       shell: bash
-      run: git checkout ${{ inputs.master-branch }} &&
+      run: |
+        git checkout ${{ inputs.master-branch }} &&
         npm install &&
         npm run ${{ inputs.build-script }} &&
         mkdir tmp &&
@@ -41,7 +42,8 @@ runs:
 
     - name: 'build test branch distributions'
       shell: bash
-      run: git branch -r |
+      run: |
+        git branch -r |
         grep --line-buffered ${{ inputs.test-branch-prefix }} |
         awk '{n=split($0,a,"${{ inputs.test-branch-prefix  }}"); print "${{ inputs.test-branch-prefix }}"a[n]}' |
         xargs -L1 >> ab-test-branches.tmp &&
@@ -56,7 +58,8 @@ runs:
 
     - name: 'prepare output folder'
       shell: bash
-      run: rm -rf ${{ inputs.output-directory }} || true &&
+      run: |
+        rm -rf ${{ inputs.output-directory }} || true &&
         mkdir ${{ inputs.output-directory }} &&
         mv tmp/* ${{ inputs.output-directory }}
 
