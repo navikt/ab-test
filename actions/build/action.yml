@@ -34,6 +34,7 @@ runs:
       run: git checkout ${{ inputs.master-branch }} &&
         npm install &&
         npm run ${{ inputs.build-script }} &&
+        mkdir tmp &&
         mkdir tmp/${{ inputs.master-branch }} &&
         cp ${{ inputs.dist-directory }}/* tmp/${{ inputs.master-branch }}/ &&
         git reset --hard
