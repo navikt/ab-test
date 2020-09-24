@@ -24,31 +24,45 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: 'set environment variables'
-      shell: bash
-      run: |
-        echo "::set-env name=MASTER_BRANCH::${{ inputs.master-branch }}" &&
-        echo "::set-env name=TEST_BRANCH_PREFIX::${{ inputs.test-branch-prefix }}" &&
-        echo "::set-env name=BUILD_SCRIPT::${{ inputs.build-script }}" &&
-        echo "::set-env name=DIST_DIRECTORY::${{ inputs.dist-directory }}" &&
-        echo "::set-env name=OUTPUT_DIRECTORY::${{ inputs.output-directory }}"
-
     - name: 'make temporary folder'
       shell: bash
-      run: ${{ github.action_path }}/pre-action.sh
+      run: |
+        mkdir tmp
 
     - name: 'build master branch distribution'
       shell: bash
-      run: ${{ github.action_path }}/build-master-branch.sh
+      run: |
+        git checkout ${{ inputs.master-branch }} &&
+        npm install &&
+        npm run ${{ inputs.build-script }} &&
+        mkdir tmp/${{ inputs.master-branch }} &&
+        cp -r ${{ inputs.dist-directory }}/* tmp/${{ inputs.master-branch }}/ &&
+        git reset --hard
 
     - name: 'build test branch distributions'
       shell: bash
-      run: ${{ github.action_path }}/build-master-branch.sh
+      run: |
+        git branch -r |
+        grep --line-buffered ${{ inputs.test-branch-prefix }} |
+        awk '{n=split($0,a,"${{ inputs.test-branch-prefix  }}"); print a[n]}' |
+        xargs -L1 >> ab-test-branches.tmp &&
+        while read l;
+          do git checkout "${{ inputs.test-branch-prefix }}$l";
+          npm install && npm run ${{ inputs.build-script }};
+          mkdir tmp/"$l";
+          cp -r ${{ inputs.dist-directory }}/* tmp/"$l"/;
+          git reset --hard;
+        done < ab-test-branches.tmp &&
+        git checkout $GITHUB_REF
 
     - name: 'prepare output folder'
       shell: bash
-      run: ${{ github.action_path }}/prepare-distribution.sh
+      run: |
+        rm -rf ${{ inputs.output-directory }} || true &&
+        mkdir ${{ inputs.output-directory }} &&
+        mv tmp/* ${{ inputs.output-directory }}
 
     - name: 'clean up'
       shell: bash
-      run: ${{ github.action_path }}/post-action.sh
+      run: |
+        rm -r **tmp
