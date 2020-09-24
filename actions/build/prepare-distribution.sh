@@ -1,5 +1,5 @@
 #!/bin/bash
 
-rm -rf ${{ inputs.output-directory }} || true && mkdir ${{ inputs.output-directory }}
+rm -rf $OUTPUT_DIRECTORY || true && mkdir $OUTPUT_DIRECTORY
 
-mv tmp/* ${{ inputs.output-directory }}
+mv tmp/* $OUTPUT_DIRECTORY

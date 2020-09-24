@@ -1,11 +1,11 @@
 #!/bin/bash
 
-git checkout ${{ inputs.master-branch }}
+git checkout $MASTER_BRANCH
 
 npm install
-npm run ${{ inputs.build-script }}
+npm run $BUILD_SCRIPT
 
-mkdir tmp/${{ inputs.master-branch }}
-cp -r ${{ inputs.dist-directory }}/* tmp/${{ inputs.master-branch }}/
+mkdir tmp/$MASTER_BRANCH
+cp -r $DIST_DIRECTORY/* tmp/$MASTER_BRANCH/
 
 git reset --hard

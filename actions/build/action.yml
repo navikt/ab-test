@@ -24,6 +24,15 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: 'set environment variables'
+      shell: bash
+      run: |
+        echo "::set-env name=MASTER_BRANCH::${{ inputs.master-branch }}" &&
+        echo "::set-env name=TEST_BRANCH_PREFIX::${{ inputs.test-branch-prefix }}" &&
+        echo "::set-env name=BUILD_SCRIPT::${{ inputs.build-script }}" &&
+        echo "::set-env name=DIST_DIRECTORY::${{ inputs.dist-directory }}" &&
+        echo "::set-env name=OUTPUT_DIRECTORY::${{ inputs.output-directory }}"
+
     - name: 'make temporary folder'
       shell: bash
       run: ${{ github.action_path }}/pre-action.sh

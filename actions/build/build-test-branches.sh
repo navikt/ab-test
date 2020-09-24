@@ -1,12 +1,12 @@
 #!/bin/bash
 
-git branch -r | grep --line-buffered ${{ inputs.test-branch-prefix }} | awk '{n=split($0,a,"${{ inputs.test-branch-prefix  }}"); print a[n]}' | xargs -L1 >> ab-test-branches.tmp
+git branch -r | grep --line-buffered $TEST_BRANCH_PREFIX | awk '{n=split($0,a,"$TEST_BRANCH_PREFIX"); print a[n]}' | xargs -L1 >> ab-test-branches.tmp
 
 while read l;
-  do git checkout "${{ inputs.test-branch-prefix }}$l";
-  npm install && npm run ${{ inputs.build-script }};
+  do git checkout "$TEST_BRANCH_PREFIX$l";
+  npm install && npm run $BUILD_SCRIPT;
   mkdir tmp/"$l";
-  cp -r ${{ inputs.dist-directory }}/* tmp/"$l"/;
+  cp -r $DIST_DIRECTORY/* tmp/"$l"/;
   git reset --hard;
 done < ab-test-branches.tmp
 
