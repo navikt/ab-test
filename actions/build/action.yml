@@ -56,7 +56,8 @@ runs:
 
     - name: 'prepare output folder'
       shell: bash
-      run: mkdir ${{ inputs.output-directory }} &&
+      run: rm -rf ${{ inputs.output-directory }} || true &&
+        mkdir ${{ inputs.output-directory }} &&
         mv tmp/* ${{ inputs.output-directory }}
 
     - name: 'clean up'
