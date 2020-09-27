@@ -1,35 +1,37 @@
 {
-  "name": "ab-test-middleware"
-  , "version": "0.1.1-alpha"
-  , "description": "An express middleware that manages multiple distributions for A/B/N testing purposes."
-  , "main": "index.js"
-  , "scripts": {
+  "name": "ab-test-middleware",
+  "version": "0.1.1-alpha",
+  "description": "An express middleware that manages multiple distributions for A/B/N testing purposes.",
+  "main": "index.js",
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  }
-  , "dependencies": {
+  },
+  "dependencies": {
     "express": "4.x"
-  }
-  , "engines" : { "node" : ">=8.0.0" }
-  , "repository": {
-    "type": "git"
-    , "url": "https://github.com/navikt/ab-test.git"
-    , "directory": "packages/ab-test-middleware"
-  }
-  , "keywords": [
-    "ab-test"
-    , "test"
-    , "middleware"
-    , "express"
-    , "multivariate"
-  ]
-  , "author": {
-    "name": "J. Julian Torp G."
-    , "email": "julian.torp@nav.no"
-    , "url": "https://github.com/jjtg-nav"
-  }
-  , "license": "MIT"
-  , "bugs": {
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/navikt/ab-test.git",
+    "directory": "packages/ab-test-middleware"
+  },
+  "keywords": [
+    "ab-test",
+    "test",
+    "middleware",
+    "express",
+    "multivariate"
+  ],
+  "author": {
+    "name": "J. Julian Torp G.",
+    "email": "julian.torp@nav.no",
+    "url": "https://github.com/jjtg-nav"
+  },
+  "license": "MIT",
+  "bugs": {
     "url": "https://github.com/navikt/ab-test/issues"
-  }
-  , "homepage": "https://github.com/navikt/ab-test/tree/main/packages/ab-test-middleware#readme"
+  },
+  "homepage": "https://github.com/navikt/ab-test/tree/main/packages/ab-test-middleware#readme"
 }
