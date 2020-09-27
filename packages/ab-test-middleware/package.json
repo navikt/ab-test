@@ -31,5 +31,5 @@
   , "bugs": {
     "url": "https://github.com/navikt/ab-test/issues"
   }
-  , "homepage": "https://github.com/navikt/ab-test/packages/ab-test-middleware#readme"
+  , "homepage": "https://github.com/navikt/ab-test/tree/main/packages/ab-test-middleware#readme"
 }
