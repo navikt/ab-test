@@ -33,4 +33,4 @@ const createCookieMiddleware = (options) => {
   return router;
 };
 
-module.exports = { createCookieMiddleware };
+module.exports = { cookieMiddleware , createCookieMiddleware };

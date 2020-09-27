@@ -4,10 +4,13 @@
   "description": "An express middleware that manages multiple distributions for A/B/N testing purposes.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "dependencies": {
     "express": "4.x"
+  },
+  "devDependencies": {
+    "jest": "26.4.2"
   },
   "engines": {
     "node": ">=8.0.0"
