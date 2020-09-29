@@ -8,7 +8,7 @@ const distributionToggleMiddleware = (req, res, next) => {
   try {
     let atLeastOneDistributionEnabled = false;
     if (!req.locals) req.locals = {};
-    req.locals.defaultDist = defaultDist;
+    if (!req.locals.defaultDist) req.locals.defaultDist = defaultDist;
     req.locals.distributionToggles = req.locals.dists.reduce((acc, curr) => {
       if (curr === defaultDist) {
         acc[curr] = true;
@@ -37,4 +37,4 @@ const createDistributionToggleMiddleware = (options) => {
   return router;
 };
 
-module.exports = { createDistributionToggleMiddleware };
+module.exports = { distributionToggleMiddleware, createDistributionToggleMiddleware };

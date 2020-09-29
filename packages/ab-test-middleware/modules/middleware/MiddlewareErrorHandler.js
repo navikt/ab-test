@@ -14,4 +14,4 @@ const createMiddlewareErrorHandler = (qualifier) => {
   return router;
 };
 
-module.exports = { createMiddlewareErrorHandler };
+module.exports = { middlewareErrorHandler, createMiddlewareErrorHandler };

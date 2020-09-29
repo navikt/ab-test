@@ -6,10 +6,11 @@
   "scripts": {
     "test": "jest"
   },
-  "dependencies": {
+  "peerDependencies": {
     "express": "4.x"
   },
   "devDependencies": {
+    "@jest/globals": "^26.4.2",
     "jest": "26.4.2"
   },
   "engines": {
