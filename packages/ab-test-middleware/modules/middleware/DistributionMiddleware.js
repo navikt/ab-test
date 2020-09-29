@@ -28,4 +28,4 @@ const createDistributionMiddleware = (options) => {
   return router;
 };
 
-module.exports = { createDistributionMiddleware };
+module.exports = { distributionMiddleware, createDistributionMiddleware };

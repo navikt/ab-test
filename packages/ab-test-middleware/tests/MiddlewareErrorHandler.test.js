@@ -14,11 +14,11 @@ describe('test middleware error handler', () => {
     test('next function should be called after error', () => {
         const next = jest.fn();
         middlewareErrorHandler(new Error('test error'), {}, {}, next);
-        expect(next.mock.calls.length).toBe(1);
+        expect(next).toBeCalledTimes(1);
     });
     test('next function should be called without error', () => {
         const next = jest.fn();
         middlewareErrorHandler(undefined, {}, {}, next);
-        expect(next.mock.calls.length).toBe(1);
+        expect(next).toBeCalledTimes(1);
     })
 });

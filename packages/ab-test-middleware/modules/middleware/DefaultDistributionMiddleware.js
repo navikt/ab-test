@@ -19,4 +19,4 @@ const createDefaultDistributionMiddleware = () => {
   return router;
 };
 
-module.exports = createDefaultDistributionMiddleware();
+module.exports = { defaultDistributionMiddleware, createDefaultDistributionMiddleware };

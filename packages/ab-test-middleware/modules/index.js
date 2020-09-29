@@ -1,5 +1,5 @@
 const { createCookieMiddleware } = require('./middleware/CookieMiddleware');
-const createDefaultDistributionMiddleware = require('./middleware/DefaultDistributionMiddleware');
+const { createDefaultDistributionMiddleware } = require('./middleware/DefaultDistributionMiddleware');
 const { createDistributionMiddleware } = require('./middleware/DistributionMiddleware');
 const { createDistributionPathsMiddleware } = require('./middleware/DistributionPathsMiddleware');
 const { createDistributionToggleMiddleware } = require('./middleware/DistributionToggleMiddleware');

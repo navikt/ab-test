@@ -33,7 +33,7 @@ const createAbTestMiddleware = (options) => {
   router.use(createTestGroupAssignationMiddleware(options));
   router.use(createMiddlewareErrorHandler('pre-dist'));
   router.use(createDistributionMiddleware(options));
-  router.use(createDefaultDistributionMiddleware);
+  router.use(createDefaultDistributionMiddleware());
   router.use(createMiddlewareErrorHandler('catch-all'));
   return router;
 };
