@@ -50,4 +50,4 @@ const createTestGroupAssignationMiddleware = (options) => {
   return router;
 };
 
-module.exports = { createTestGroupAssignationMiddleware };
+module.exports = { testGroupAssignationMiddleware, createTestGroupAssignationMiddleware };

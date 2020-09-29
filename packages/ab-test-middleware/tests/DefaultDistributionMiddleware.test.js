@@ -40,5 +40,4 @@ describe('test default distribution middleware', () => {
             expect(await e.message).toEqual('Cannot read property \'locals\' of undefined');
         });
     });
-
 });

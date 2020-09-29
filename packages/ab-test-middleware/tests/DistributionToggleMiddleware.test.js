@@ -35,7 +35,7 @@ describe('test distribution toggle middleware', () => {
         expect(req.locals.distributionToggles['master']).toBe(false);
     });
     test('next should be called with error in parameter when no distributions are enabled', () => {
-        let req = { locals: { dists: ['testDist', 'dist', 'master'], defaultDist: 'default' } };
+        let req = { locals: { dists: ['testDist', 'dist'], defaultDist: 'default' } };
         createDistributionToggleMiddleware({
             distributionToggleInterpreter: jest.fn()
                 .mockReturnValueOnce(false)
