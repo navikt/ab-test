@@ -1,6 +1,6 @@
 {
   "name": "ab-test-middleware",
-  "version": "0.1.3-alpha",
+  "version": "0.1.4-alpha",
   "description": "An express middleware that manages multiple distributions for A/B/N testing purposes.",
   "main": "index.js",
   "scripts": {

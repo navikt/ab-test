@@ -1,5 +1,5 @@
 # ab-test-middleware
-A middleware that provides an easy way to serve multiple distributions in order to run A/B/M tests.
+A middleware that provides an easy way to serve multiple distributions in order to run A/B/N tests.
 
 _**NOTE: The middleware expects a set of production ready distributions to be built prior to using it on an app.**_ 
 
