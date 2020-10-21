@@ -46,6 +46,7 @@ runs:
         grep --line-buffered ${{ inputs.test-branch-prefix }} |
         awk '{n=split($0,a,"${{ inputs.test-branch-prefix  }}"); print a[n]}' |
         xargs -L1 >> ab-test-branches.tmp &&
+        [[ $(sed -n '=' ab-test-branches.tmp | wc -l) -gt 0 ]] &&
         while read -r l; do
           git checkout "${{ inputs.test-branch-prefix }}$l";
           npm install && npm run ${{ inputs.build-script }};
