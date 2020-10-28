@@ -30,14 +30,18 @@ runs:
         mkdir tmp
 
     - name: 'build master branch distribution'
+      env:
+        MASTER_BRANCH: ${{ inputs.master-branch }}
+        BUILD_SCRIPT: ${{ inputs.build-script }}
+        DIST_DIRECTORY: ${{ inputs.dist-directory }}
       shell: bash
-      run: |
-        git checkout ${{ inputs.master-branch }} &&
-        npm install &&
-        npm run ${{ inputs.build-script }} &&
-        mkdir tmp/${{ inputs.master-branch }} &&
-        cp -r ${{ inputs.dist-directory }}/* tmp/${{ inputs.master-branch }}/ &&
-        git reset --hard
+      run: ${{ github.action_path }}/build-master-branch.sh
+     #   git checkout ${{ inputs.master-branch }} &&
+     #   npm install &&
+     #   npm run ${{ inputs.build-script }} &&
+     #   mkdir tmp/${{ inputs.master-branch }} &&
+     #   cp -r ${{ inputs.dist-directory }}/* tmp/${{ inputs.master-branch }}/ &&
+     #   git reset --hard
 
     - name: 'build test branch distributions'
       shell: bash
