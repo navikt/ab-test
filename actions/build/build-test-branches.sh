@@ -13,9 +13,3 @@ while read -r l; do
 done < ab-test-branches.tmp
 
 git checkout $GITHUB_REF
-
-echo "STATUS CHECK"
-git status
-
-echo "RESETTING BRANCH"
-git reset --hard
