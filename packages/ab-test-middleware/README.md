@@ -52,6 +52,7 @@ app.use(createAbTestMiddleware({
   distFolder: 'build',                      // name of the distribution folder (default: 'dist') 
   cookieName: 'distributionName',           // name of the cookie to be set on test group assignation (default: 'testGroup')
   entryFile: 'landing-page.html',           // name of the entry file for your distribution (default: 'index.html')
+  ingresses: ['/'],                         // array containing application ingresses (default: ['/'])
   randomizeTestGroupDistribution: true,     // whether to randomize the test group assignation (default: false)
   testGroupToggleInterpreter: testGroupToggleInterpreter,
   distributionToggleInterpreter: distributionToggleInterpreter,

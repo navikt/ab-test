@@ -4,9 +4,11 @@ const express = require('express');
 const defaultDistributionMiddleware = (req, res, next) => {
   try {
     const {
-      distFolder, defaultDist, distPath, entryFile,
+      distFolder, defaultDist, distPath, entryFile, ingresses
     } = req.locals;
-    if (!req.baseUrl) return res.sendFile(path.resolve(distFolder, defaultDist, entryFile));
+    if (!req.baseUrl || ingresses.includes(req.baseUrl)) {
+      return res.sendFile(path.resolve(distFolder, defaultDist, entryFile));
+    }
     return res.sendFile(path.join(defaultDist, req.baseUrl), { root: distPath, index: false });
   } catch (e) {
     return next(e);

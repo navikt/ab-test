@@ -2,7 +2,7 @@ const path = require('path');
 const { distributionMiddleware, createDistributionMiddleware } = require('../modules/middleware/DistributionMiddleware');
 
 describe('test distribution middleware', () => {
-    test('next should be call when no dist is available', () => {
+    test('next should be called when no dist is available', () => {
         createDistributionMiddleware({});
         let req = {
             locals: {
