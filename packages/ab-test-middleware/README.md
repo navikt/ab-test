@@ -3,7 +3,7 @@ A middleware that provides an easy way to serve multiple distributions in order 
 
 _**NOTE: The middleware expects a set of production ready distributions to be built prior to using it on an app.**_ 
 
-## TL;DR
+## Usage (the TL;DR version) 
 
 Assuming your distributions are built already and available in your `build` folder with the following structure:
 ```
