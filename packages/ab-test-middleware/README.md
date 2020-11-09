@@ -5,7 +5,10 @@ _**NOTE: The middleware expects a set of production ready distributions to be bu
 
 ## Usage (the TL;DR version) 
 
-Assuming your distributions are built already and available in your `build` folder with the following structure:
+Assuming your distributions are built already and available in your `build` folder.
+I suggest using [navikt/ab-test/actions/build@v1](https://github.com/navikt/ab-test/tree/main/actions/build) 
+if you're running your deployments by means of GitHub Actions.
+The `build` folder should be created with the following structure:
 ```
 build/
  ├── release-v1.0.0
