@@ -27,7 +27,8 @@ describe('test default distribution middleware', () => {
                 defaultDist: 'dist',
                 distPath: './dist',
                 distFolder: 'dist',
-                ingresses: ['/']
+                ingresses: ['/'],
+                modifiedBaseUrl: 'index.js'
             }
         };
         const res = {sendFile: jest.fn()}
