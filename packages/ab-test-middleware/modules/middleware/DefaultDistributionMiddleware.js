@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const fileExists = require("../lib/fileExists");
 
 const defaultDistributionMiddleware = (req, res, next) => {
   try {
@@ -9,7 +10,12 @@ const defaultDistributionMiddleware = (req, res, next) => {
     if (!req.baseUrl || ingresses.includes(req.baseUrl)) {
       return res.sendFile(path.resolve(distFolder, defaultDist, entryFile));
     }
-    return res.sendFile(path.join(defaultDist, modifiedBaseUrl), { root: distPath, index: false });
+    const filePath = path.join(defaultDist, modifiedBaseUrl);
+    if (fileExists(`${distPath}/${filePath}`)) {
+      return res.sendFile(path.join(defaultDist, modifiedBaseUrl), { root: distPath, index: false });
+    } else {
+      next();
+    }
   } catch (e) {
     return next(e);
   }

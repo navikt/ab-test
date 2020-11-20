@@ -1,6 +1,10 @@
 const path = require('path');
 const { defaultDistributionMiddleware, createDefaultDistributionMiddleware } = require("../modules/middleware/DefaultDistributionMiddleware");
 
+jest.mock('../modules/lib/fileExists');
+const fileExists = require('../modules/lib/fileExists');
+fileExists.mockImplementation(() => true);
+
 describe('test default distribution middleware', () => {
     test('res.sendFile should be called after finding dist', () => {
         createDefaultDistributionMiddleware();

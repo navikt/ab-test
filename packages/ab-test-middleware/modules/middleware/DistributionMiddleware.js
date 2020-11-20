@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 const path = require('path');
 const express = require('express');
+const fileExists = require("../lib/fileExists");
 
 let entryFile;
 let ingresses;
@@ -26,8 +27,12 @@ const distributionMiddleware = (req, res, next) => {
       if (!req.baseUrl || ingresses.includes(req.baseUrl)) {
         return res.sendFile(path.resolve(distFolder, dist, entryFile));
       }
-
-      return res.sendFile(path.join(dist, req.locals.modifiedBaseUrl), { root: distPath, index: false });
+      const filePath = path.join(dist, req.locals.modifiedBaseUrl);
+      if (fileExists(`${distPath}/${filePath}`)) {
+        return res.sendFile(filePath, { root: distPath, index: false });
+      } else {
+        next();
+      }
     }
   } catch (e) {
     return next(e);

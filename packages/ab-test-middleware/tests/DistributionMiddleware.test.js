@@ -1,5 +1,10 @@
 const path = require('path');
+
 const { distributionMiddleware, createDistributionMiddleware } = require('../modules/middleware/DistributionMiddleware');
+
+jest.mock('../modules/lib/fileExists');
+const fileExists = require('../modules/lib/fileExists');
+fileExists.mockImplementation(() => true);
 
 describe('test distribution middleware', () => {
     test('next should be called when no dist is available', () => {
