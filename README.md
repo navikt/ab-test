@@ -1,7 +1,7 @@
 # A/B-Testing from A to Z
 This repository attempts to give you a way to make your A/B-Testing easier. 
 It consists of two things:   
-1. A [library for serving multiple distributions](https://github.com/navikt/ab-test/tree/main/packages/ab-test-middleware) of your frontend code.
+1. An [express middleware library for serving multiple distributions](https://github.com/navikt/ab-test/tree/main/packages/ab-test-middleware) of your frontend code.
 2. A [GitHub Action that builds distributions](https://github.com/navikt/ab-test/tree/main/actions/build) based on branches from your repository.
 
 The main idea is to leverage multiple git branches in order to enable faster iterations 
